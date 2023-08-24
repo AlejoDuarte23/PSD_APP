@@ -1,0 +1,65 @@
+# Node modules (common for both Vue and Electron projects)
+node_modules/
+npm-debug.log
+
+# Vue build output
+dist/
+
+# Electron build output
+electron-out/
+electron-log.txt
+
+# Python/Flask specific
+*.pyc
+*.pyo
+*.egg-info/
+__pycache__/
+*.env  # Environment variables
+db.sqlite3  # If you're using SQLite
+*.log  # Any log files
+
+# Virtual environment
+venv/
+*.venv/
+*.virtualenv/
+*.virtualenvs/
+.env
+
+# IDEs and Editors
+## VS Code
+.vscode/
+## PyCharm
+.idea/
+## Sublime Text
+*.sublime-workspace
+## Others
+*.swp
+*.swo
+*.swn
+*.bak
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Other common files to ignore
+*.log
+*.tmp
+*.bak
+*.swp
+
+
+# exe 
+*.exe
+# PyInstaller specific
+build/
+dist/
+*.spec
+__pycache__/
+*.pyc
+*.pyo

@@ -1,0 +1,26 @@
+
+README 
+
+npm install -g @vue/cli
+npm install -g @vue/cli-init
+vue create my-vue-electron-app
+cd my-vue-electron-app
+
+npm install axios 
+npm install plotly.js-dist
+npm install stream-browserify
+
+vue add electron-builder
+npm run electron:serve
+
+backend to include:
+from flask_cors import CORS
+
+
+this create a dist :
+pyinstaller --onefile app.py
+pyinstaller --onefile something.py
+
+
+C:\Users\aleja\Documents\web_mod_4_on.txt
+C:\Users\aleja\Downloads\Ansys digiduce\Brace D6-E6 Top Flange.txt
