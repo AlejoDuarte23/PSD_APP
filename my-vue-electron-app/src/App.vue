@@ -1,35 +1,59 @@
 <template>
   <div id="app">
     <div class="header">
-      <h1 class="title">Modal&Co</h1>
+       <h1 class="title">Modal&Co</h1>
       <p class="subtitle">Breaking the Boundaries of Structural Health And Monitoring Through Aggressive Innovations</p>
-      <MyComponent />
+      <TopBar @add-tab="addTab" @set-active-tab="setActiveTab" />
     </div>
-    <!-- The rest of your App.vue template -->
+    <div>
+      <MyComponent 
+        v-for="tab in tabs" 
+        :key="tab.id" 
+        :tab-id="tab.id" 
+        v-show="tab.id === activeTab" />
+    </div>
   </div>
 </template>
 
 <script>
-// Import the MyComponent
 import MyComponent from './components/MyComponent.vue'
+import TopBar from './components/TopBar.vue'
 
 export default {
   name: 'App',
   components: {
-    MyComponent  // Register the MyComponent
+    MyComponent,
+    TopBar
+  },
+  data() {
+    return {
+      tabs: [
+        { id: 1 }
+      ],
+      activeTab: 1
+    };
+  },
+  methods: {
+    addTab(newId) {
+      this.tabs.push({ id: newId });
+      this.activeTab = newId;
+    },
+    setActiveTab(id) {
+      this.activeTab = id;
+    }
   }
 }
 </script>
 
 <style>
-/* Your App.vue styles */
+/* Your existing App.vue styles */
 .header {
   text-align: center;
   margin-bottom: 20px;
 }
 
 .title {
-  font-family: 'Playfair Display', serif;  /* This is just an example, you'd need to include the font in your project */
+  font-family: 'Playfair Display', serif;
   font-size: 2.5em;
   color: black;
 }

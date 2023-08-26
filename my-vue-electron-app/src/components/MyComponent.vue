@@ -1,45 +1,45 @@
 <template>
-  <div class="app-container">
+  <div :id="`app-container-${tabId}`" class="app-container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <!-- Placeholder for app name or logo -->
+    </div>
 
-      <!-- Top Bar -->
-      <div class="top-bar">
-          <!-- Placeholder for app name or logo -->
-      </div>
+    <!-- File Input Bar -->
+    <div class="input-bar">
+  
+        <input v-model="file_location" placeholder="File Location" class="file-input"/>
+        <button @click="sendData" class="send-btn">Send Data</button>
+    </div>
 
-      <!-- File Input Bar -->
-      <div class="input-bar">
-          <input v-model="file_location" placeholder="File Location" class="file-input"/>
-          <button @click="sendData" class="send-btn">Send Data</button>
-      </div>
+    <!-- Modal for extra inputs -->
+    <transition name="fade">
+        <div v-if="showModal" class="modal-overlay">
+            <div class="modal">
+                <h2>Settings</h2>
+                <div class="settings-container">
+                    <div class="modal-section">
+                        <h3>PSD Settings</h3>
+                        <input v-model="Fs" placeholder="Fs"/>
+                        <input v-model="NFFT" placeholder="NFFT"/>
+                    </div>
+                    <div class="modal-section">
+                        <h3>File Settings</h3>
+                        <input v-model="ncol" placeholder="ncol"/>
+                        <input v-model="skr" placeholder="rows to skip"/>
+                        <input v-model="deli" placeholder="delimeter"/>
+                    </div>
+                </div>
+                <button @click="toggleModal" class="close-btn">Close</button>
+            </div>
+        </div>
+    </transition>
 
-      <!-- Modal for extra inputs -->
-      <transition name="fade">
-          <div v-if="showModal" class="modal-overlay">
-              <div class="modal">
-                  <h2>Settings</h2>
-                  <div class="settings-container">
-                      <div class="modal-section">
-                          <h3>PSD Settings</h3>
-                          <input v-model="Fs" placeholder="Fs"/>
-                          <input v-model="NFFT" placeholder="NFFT"/>
-                      </div>
-                      <div class="modal-section">
-                          <h3>File Settings</h3>
-                          <input v-model="ncol" placeholder="ncol"/>
-                          <input v-model="skr" placeholder="rows to skip"/>
-                          <input v-model="deli" placeholder="delimeter"/>
-                      </div>
-                  </div>
-                  <button @click="toggleModal" class="close-btn">Close</button>
-              </div>
-          </div>
-      </transition>
+    <!-- Trigger modal button -->
+    <button @click="toggleModal" class="modal-trigger">Settings</button>
 
-      <!-- Trigger modal button -->
-      <button @click="toggleModal" class="modal-trigger">Settings</button>
-
-      <!-- Div for Plotly plot -->
-      <div id="plotly_div"></div>
+    <!-- Div for Plotly plot -->
+    <div :id="`plotly_div_${tabId}`"></div>
   </div>
 </template>
 
@@ -48,6 +48,7 @@ import axios from 'axios';
 import Plotly from 'plotly.js-dist';
 
 export default {
+  props: ['tabId'],
   data() {
     return {
       file_location: '',
@@ -56,7 +57,7 @@ export default {
       ncol: '',
       skr: '',
       deli: '',
-      showModal: false  // To control the modal visibility
+      showModal: false
     };
   },
   methods: {
@@ -116,9 +117,8 @@ export default {
           plot_bgcolor: 'rgba(0,0,0,0)',
         };
 
-        Plotly.newPlot('plotly_div', traces, layout);
+        Plotly.newPlot(`plotly_div_${this.tabId}`, traces, layout);
 
-        // Close the modal after sending data
         this.showModal = false;
 
       } catch (error) {
@@ -128,6 +128,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .app-container {
   font-family: 'Arial', sans-serif;
@@ -141,14 +142,15 @@ export default {
   height: 60px;
   background-color: transparent;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .input-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: 0px;  /* Add this line or adjust the value */
 }
 
 .file-input, .send-btn, .modal-trigger, .close-btn, .modal input {
@@ -163,6 +165,7 @@ export default {
 .file-input {
   flex: 1;
   margin-right: 10px;
+  
 }
 
 .send-btn, .close-btn, .modal-trigger {
